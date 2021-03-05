@@ -1,0 +1,90 @@
+{% extends 'journalentryapp/base.html' %}
+
+{% block header %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">Money Manager</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link active" aria-current="page" href="{% url 'index' %}">仕訳帳</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'create' %}">新しい仕訳を作成する</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'gl' %}" tabindex="-1" aria-disabled="true">総勘定元帳</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav d-flex">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">ログアウト</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock header %}
+
+{% block content %}
+  <main class="container">
+    <div class="starter-template text-center pt-5 px-3 mt-5">
+      <h1>仕訳帳</h1>
+      <p class="lead">Money Managerを使って、正確な家計管理を実現しよう！<br>簿記の形式を用いているため、簿記の練習も可能です。</p>
+    </div>
+
+    <a class="btn btn-primary mb-5" href="{% url 'create' %}" role="button">新しい仕訳を作成する</a>
+
+    <div class="table-responsive">
+      <table class="table table-hover table-sm">
+        <thead>
+          <tr>
+            <th>日付</th>
+            <th>勘定科目</th>
+            <th>金額</th>
+            <th>勘定科目</th>
+            <th>金額</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for obj in object_list %}
+          <tr>
+            <td>{{ obj.date }}</td>
+            <td>{{ obj.dr_account }}</td>
+            <td>{{ obj.dr_price }}</td>
+            <td>{{ obj.cr_account }}</td>
+            <td>{{ obj.cr_price }}</td>
+            <td><a href="{% url 'update' obj.pk %}" class="">編集</a> <a href="{% url 'delete' obj.pk %}" class="">削除</a></td>
+          </tr>
+          {% endfor %}
+        </tbody>
+
+        <thead>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>借方合計金額</th>
+            <th></th>
+            <th>貸方合計金額</th>
+            <th></th>
+          </tr>
+          <tr>
+            <th></th>
+            <th></th>
+            <th>{{ dr_sum }}</th>
+            <th></th>
+            <th>{{ cr_sum }}</th>
+            <th></th>
+          </tr>
+        </thead>
+        <thead>
+        </thead>
+      </table>
+      <p>{{ warning }}</p>
+    </div>
+  </main>
+{% endblock content %}

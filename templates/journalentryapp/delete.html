@@ -1,0 +1,13 @@
+{% extends 'journalentryapp/base.html' %}
+
+{% block content %}
+<div class="main">
+  <form method="POST">
+    {% csrf_token %}
+    <h3>本当に削除しますか？</h3>
+    <p>削除したデータは復元しません。</p>
+    <p><input type="submit" value="削除" /></p>
+    <a href="{% url 'index' %}">キャンセル</a>
+  </form>
+</div>
+{% endblock content %}

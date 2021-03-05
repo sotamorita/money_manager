@@ -1,0 +1,44 @@
+{% extends 'journalentryapp/base.html' %}
+
+{% block header %}
+<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+  <div class="container-fluid">
+    <a class="navbar-brand" href="{% url 'index' %}">Money Manager</a>
+    <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarsExampleDefault" aria-controls="navbarsExampleDefault" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarsExampleDefault">
+      <ul class="navbar-nav me-auto mb-2 mb-md-0">
+        <li class="nav-item">
+          <a class="nav-link" aria-current="page" href="{% url 'index' %}">仕訳帳</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link active" href="{% url 'create' %}">新しい仕訳を作成する</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#" tabindex="-1" aria-disabled="true">決済整理仕訳</a>
+        </li>
+      </ul>
+      <ul class="navbar-nav d-flex">
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}" tabindex="-1" aria-disabled="true">ログアウト</a>
+        </li>
+      </ul>
+    </div>
+  </div>
+</nav>
+{% endblock header %}
+
+{% block content %}
+  <main class="container">
+    <div class="starter-template text-center py-5 px-3 mt-5">
+      <h1>仕訳帳</h1>
+      <p class="lead">Money Managerを使って、正確な家計管理を実現しよう！<br>簿記の形式を用いているため、簿記の練習も可能です。<br>入力可能な日付の形式はYYYY-MM-DDのみです。</p>
+    </div>
+
+    <form method="POST" enctype="multipart/form-data">{% csrf_token %}
+      {{ form }}
+      <input class="btn btn-primary mt-5" type="submit" value="Update">
+    </form>
+  </main>
+{% endblock content %}
