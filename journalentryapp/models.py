@@ -11,16 +11,16 @@ CLASS = (
 )
 class JournalentryModel(models.Model):
     date = models.DateField()
-    dr_account = models.CharField(max_length=30)
+    dr_account = models.CharField(max_length=300)
     dr_price = models.IntegerField()
     dr_class = models.CharField(
-        max_length=30,
+        max_length=300,
         choices=CLASS,
     )
-    cr_account = models.CharField(max_length=30)
+    cr_account = models.CharField(max_length=300)
     cr_price = models.IntegerField()
     cr_class = models.CharField(
-        max_length=30,
+        max_length=300,
         choices=CLASS,
     )
 
